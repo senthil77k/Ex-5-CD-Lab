@@ -1,9 +1,8 @@
-# Ex-5-RECOGNITION-OF-THE-GRAMMAR-anb-where-n-10-USING-YACC
-RECOGNITION OF THE GRAMMAR(anb where n>=10) USING YACC
-# Date:
-# Aim:
+[# Ex-5-RECOGNITION-OF-THE-GRAMMAR-anb-where-n-10-USING-YACC
+
+# AIM:
 To write a YACC program to recognize the grammar anb where n>=10.
-# ALGORITHM
+# ALGORITHM:
 1.	Start the program.
 2.	Write a program in the vi editor and save it with .l extension.
 3.	In the lex program, write the translation rules for the variables a and b.
@@ -13,6 +12,68 @@ To write a YACC program to recognize the grammar anb where n>=10.
 7.	Compile these with the C compiler as gcc lex.yy.c y.tab.c
 8.	Enter a string as input and it is identified as valid or invalid.
 # PROGRAM:
-# OUTPUT
-# RESULT
+## exp5.l:
+```
+%{
+/* Definition section */
+#include "y.tab.h"
+%}
+
+/* Rule Section */
+%%
+[aA] {return A;}
+[bB] {return B;}
+\n {return NL;}
+. {return yytext[0];}
+%%
+
+int yywrap()
+{
+    return 1;
+}
+```
+## exp5.y :
+```
+%{
+/* Definition section */
+#include<stdio.h>
+#include<stdlib.h>
+%}
+
+%token A B NL
+
+/* Rule Section */
+%%
+stmt: S NL { 
+    printf("valid string\n");
+    exit(0); 
+}
+;
+S: A S B |
+;
+%%
+
+int yyerror(char *msg)
+{
+    printf("invalid string\n"); 
+    exit(0);
+}
+
+//driver code 
+int main()
+{
+    printf("enter the string\n"); 
+    yyparse();
+    return 0;
+}
+```
+# OUTPUT:
+![image](https://github.com/user-attachments/assets/0b26b13b-c64b-48c1-95cc-e129f60e3e97)
+
+
+
+# RESULT:
 The YACC program to recognize the grammar anb where n>=10 is executed successfully and the output is verified.
+ 
+
+](https://github.com/naveen-2006/Ex-5-CD-Lab)
